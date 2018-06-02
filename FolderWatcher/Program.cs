@@ -13,7 +13,10 @@ namespace FolderWatcher
         static void Main(string[] args)
         {
             InitializeLogger();
-            LoadConfiguration();
+            if (!LoadConfiguration())
+            {
+                return;
+            }
 
             try
             {
@@ -21,13 +24,12 @@ namespace FolderWatcher
                 watcher.Start();
                 Console.ReadLine();
                 watcher.Stop();
+                Console.ReadLine();
             }
             catch (Exception e)
             {
                 Log.Error(e, "Unexpected error");
             }
-
-            Console.ReadLine();
         }
 
         static void InitializeLogger()
@@ -38,7 +40,7 @@ namespace FolderWatcher
                 .CreateLogger();
         }
 
-        static void LoadConfiguration()
+        static bool LoadConfiguration()
         {
             try
             {
@@ -46,14 +48,26 @@ namespace FolderWatcher
                         .SetBasePath(Directory.GetCurrentDirectory())
                         .AddJsonFile("appsettings.json")
                         .Build();
-                path = configuration["Path"];
-                filter = configuration["Filter"];
+                path = GetConfigurationValue(configuration, "Path");
+                filter = GetConfigurationValue(configuration, "Filter");
             }
             catch (Exception e)
             {
                 Log.Error(e, "Error loading configuration");
-                throw e;
+                return false;
             }
+
+            return true;
+        }
+
+        static string GetConfigurationValue(IConfiguration configuration, string key)
+        {
+            string value = configuration[key];
+            if (value == null)
+            {
+                throw new Exception($"'{key}' key not found in configuration");
+            }
+            return value;
         }
     }
 }

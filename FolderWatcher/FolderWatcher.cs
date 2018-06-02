@@ -1,10 +1,5 @@
 ﻿using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.Text;
 
 namespace FolderWatcher
 {
@@ -57,7 +52,7 @@ namespace FolderWatcher
             }
 
             FileSystemWatcher.EnableRaisingEvents = false;
-            Output("Stopped watcher for {FileSystemWatcher.Path} with filter string {FileSystemWatcher.Filter}");
+            Output($"Stopped watcher for {FileSystemWatcher.Path} with filter string {FileSystemWatcher.Filter}");
             return true;
         }
 
