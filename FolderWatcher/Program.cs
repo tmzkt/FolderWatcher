@@ -7,38 +7,52 @@ namespace FolderWatcher
 {
     class Program
     {
-        private string path;
-        private string filterstring;
+        static string path;
+        static string filter;
 
         static void Main(string[] args)
+        {
+            InitializeLogger();
+            LoadConfiguration();
+
+            try
+            {
+                FolderWatcher watcher = new FolderWatcher(path, filter);
+                watcher.Start();
+                Console.ReadLine();
+                watcher.Stop();
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Unexpected error");
+            }
+
+            Console.ReadLine();
+        }
+
+        static void InitializeLogger()
         {
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.File("log-.txt", rollingInterval: RollingInterval.Day)
                 .WriteTo.Console()
                 .CreateLogger();
-            Log.Information("hello, can you hear me?");
+        }
 
+        static void LoadConfiguration()
+        {
             try
             {
                 IConfiguration configuration = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json")
-                    .Build();
-                string path = configuration["Path"];
-                string filterString = configuration["FilterString"];
-
-                //string path = System.Configuration.ConfigurationManager.AppSettings[""];
-                FolderWatcher watcher = new FolderWatcher(path, filterString);
-                watcher.Start();
-                Console.ReadLine();
-                watcher.Stop();
-                Console.ReadLine();
+                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("appsettings.json")
+                        .Build();
+                path = configuration["Path"];
+                filter = configuration["Filter"];
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                // TODO log
-                Console.WriteLine("Unexpected exception occurred. See error log for details.");
-                Console.ReadLine();
+                Log.Error(e, "Error loading configuration");
+                throw e;
             }
         }
     }

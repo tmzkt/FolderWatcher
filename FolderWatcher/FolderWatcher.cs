@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -18,10 +19,10 @@ namespace FolderWatcher
             Initialize();
         }
 
-        public FolderWatcher(string path, string filterString)
+        public FolderWatcher(string path, string filter)
         {
             // TODO bad path and filter string handling
-            FileSystemWatcher = new FileSystemWatcher(path, filterString);
+            FileSystemWatcher = new FileSystemWatcher(path, filter);
             Initialize();
         }
 
@@ -47,7 +48,7 @@ namespace FolderWatcher
             FileSystemWatcher.EnableRaisingEvents = true;
             return true;
         }
-        
+
         public bool Stop()
         {
             if (!IsWatching())
@@ -56,7 +57,7 @@ namespace FolderWatcher
             }
 
             FileSystemWatcher.EnableRaisingEvents = false;
-            Output("Stopped watcher for " + FileSystemWatcher.Path);
+            Output("Stopped watcher for {FileSystemWatcher.Path} with filter string {FileSystemWatcher.Filter}");
             return true;
         }
 
@@ -92,7 +93,7 @@ namespace FolderWatcher
 
         private void Output(string msg)
         {
-            Console.WriteLine(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + ": " + msg);
+            Log.Information(msg);
         }
     }
 }
