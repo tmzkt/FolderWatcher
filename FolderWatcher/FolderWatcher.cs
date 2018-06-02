@@ -9,14 +9,12 @@ namespace FolderWatcher
 
         public FolderWatcher(string path)
         {
-            // TODO bad path handling
             FileSystemWatcher = new FileSystemWatcher(path);
             Initialize();
         }
 
         public FolderWatcher(string path, string filter)
         {
-            // TODO bad path and filter string handling
             FileSystemWatcher = new FileSystemWatcher(path, filter);
             Initialize();
         }
@@ -28,7 +26,7 @@ namespace FolderWatcher
             FileSystemWatcher.Changed += OnChanged;
             FileSystemWatcher.Renamed += OnRenamed;
             FileSystemWatcher.Error += OnError;
-            //FileSystemWatcher.IncludeSubdirectories = true;
+            FileSystemWatcher.IncludeSubdirectories = true;
             FileSystemWatcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;
         }
 
