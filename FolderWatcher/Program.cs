@@ -20,7 +20,7 @@ namespace FolderWatcher
 
             try
             {
-                FolderWatcher watcher = new FolderWatcher(new FileSystemWatcher(path, filter));
+                FolderWatcher watcher = new FolderWatcher(new FileSystemWatcherWrapper(new FileSystemWatcher(path, filter)));
                 watcher.Start();
                 Console.ReadLine();
                 watcher.Stop();

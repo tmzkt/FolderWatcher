@@ -6,9 +6,9 @@ namespace FolderWatcher
 {
     public class FolderWatcher
     {
-        private readonly FileSystemWatcher FileSystemWatcher;
+        private readonly IFileSystemWatcher FileSystemWatcher;
 
-        public FolderWatcher(FileSystemWatcher fileSystemWatcher)
+        public FolderWatcher(IFileSystemWatcher fileSystemWatcher)
         {
             FileSystemWatcher = fileSystemWatcher ?? throw new ArgumentException("Argument cannot be null", "fileSystemWatcher");
             FileSystemWatcher.Created += OnCreated;
