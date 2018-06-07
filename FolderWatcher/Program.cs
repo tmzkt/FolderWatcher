@@ -5,7 +5,7 @@ using System.IO;
 
 namespace FolderWatcher
 {
-    class Program
+    public class Program
     {
         static string path;
         static string filter;
@@ -20,7 +20,7 @@ namespace FolderWatcher
 
             try
             {
-                FolderWatcher watcher = new FolderWatcher(path, filter);
+                FolderWatcher watcher = new FolderWatcher(new FileSystemWatcher(path, filter));
                 watcher.Start();
                 Console.ReadLine();
                 watcher.Stop();

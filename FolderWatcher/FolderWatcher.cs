@@ -1,26 +1,16 @@
 ﻿using Serilog;
+using System;
 using System.IO;
 
 namespace FolderWatcher
 {
-    class FolderWatcher
+    public class FolderWatcher
     {
         private readonly FileSystemWatcher FileSystemWatcher;
 
-        public FolderWatcher(string path)
+        public FolderWatcher(FileSystemWatcher fileSystemWatcher)
         {
-            FileSystemWatcher = new FileSystemWatcher(path);
-            Initialize();
-        }
-
-        public FolderWatcher(string path, string filter)
-        {
-            FileSystemWatcher = new FileSystemWatcher(path, filter);
-            Initialize();
-        }
-
-        private void Initialize()
-        {
+            FileSystemWatcher = fileSystemWatcher ?? throw new ArgumentException("Argument cannot be null", "fileSystemWatcher");
             FileSystemWatcher.Created += OnCreated;
             FileSystemWatcher.Deleted += OnDeleted;
             FileSystemWatcher.Changed += OnChanged;
