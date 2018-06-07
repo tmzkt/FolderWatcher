@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FolderWatcher", "FolderWatcher\FolderWatcher.csproj", "{C072EF34-2701-4739-8AEB-71CBBAB70DCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FolderWatcher", "FolderWatcher\FolderWatcher.csproj", "{C072EF34-2701-4739-8AEB-71CBBAB70DCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FolderWatcherUnitTests", "FolderWatcherUnitTests\FolderWatcherUnitTests.csproj", "{C7043D7E-7073-4016-B623-908803EF5087}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C072EF34-2701-4739-8AEB-71CBBAB70DCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C072EF34-2701-4739-8AEB-71CBBAB70DCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C072EF34-2701-4739-8AEB-71CBBAB70DCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7043D7E-7073-4016-B623-908803EF5087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7043D7E-7073-4016-B623-908803EF5087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7043D7E-7073-4016-B623-908803EF5087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7043D7E-7073-4016-B623-908803EF5087}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
