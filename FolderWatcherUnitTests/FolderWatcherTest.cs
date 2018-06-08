@@ -1,7 +1,6 @@
 using FakeItEasy;
 using FolderWatcher;
 using System;
-using System.IO;
 using Xunit;
 
 namespace FolderWatcherUnitTests

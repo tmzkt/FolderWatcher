@@ -24,7 +24,6 @@ namespace FolderWatcher
                 watcher.Start();
                 Console.ReadLine();
                 watcher.Stop();
-                Console.ReadLine();
             }
             catch (Exception e)
             {
@@ -36,7 +35,7 @@ namespace FolderWatcher
         {
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.File("log-.txt", rollingInterval: RollingInterval.Day)
-                .WriteTo.Console()
+                .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss.fff}] {Message:lj}{NewLine}{Exception}")
                 .CreateLogger();
         }
 

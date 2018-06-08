@@ -6,18 +6,18 @@ namespace FolderWatcher
 {
     public class FolderWatcher
     {
-        private readonly IFileSystemWatcher FileSystemWatcher;
+        private readonly IFileSystemWatcher fileSystemWatcher;
 
         public FolderWatcher(IFileSystemWatcher fileSystemWatcher)
         {
-            FileSystemWatcher = fileSystemWatcher ?? throw new ArgumentException("Argument cannot be null", "fileSystemWatcher");
-            FileSystemWatcher.Created += OnCreated;
-            FileSystemWatcher.Deleted += OnDeleted;
-            FileSystemWatcher.Changed += OnChanged;
-            FileSystemWatcher.Renamed += OnRenamed;
-            FileSystemWatcher.Error += OnError;
-            FileSystemWatcher.IncludeSubdirectories = true;
-            FileSystemWatcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;
+            this.fileSystemWatcher = fileSystemWatcher ?? throw new ArgumentException("Argument cannot be null", "fileSystemWatcher");
+            this.fileSystemWatcher.Created += OnCreated;
+            this.fileSystemWatcher.Deleted += OnDeleted;
+            this.fileSystemWatcher.Changed += OnChanged;
+            this.fileSystemWatcher.Renamed += OnRenamed;
+            this.fileSystemWatcher.Error += OnError;
+            this.fileSystemWatcher.IncludeSubdirectories = true;
+            this.fileSystemWatcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;
         }
 
         public bool Start()
@@ -27,8 +27,8 @@ namespace FolderWatcher
                 return false;
             }
 
-            Output($"Starting watcher for {FileSystemWatcher.Path} with filter string {FileSystemWatcher.Filter}");
-            FileSystemWatcher.EnableRaisingEvents = true;
+            Output($"Starting watcher for {fileSystemWatcher.Path} with filter string {fileSystemWatcher.Filter}");
+            fileSystemWatcher.EnableRaisingEvents = true;
             return true;
         }
 
@@ -39,14 +39,14 @@ namespace FolderWatcher
                 return false;
             }
 
-            FileSystemWatcher.EnableRaisingEvents = false;
-            Output($"Stopped watcher for {FileSystemWatcher.Path} with filter string {FileSystemWatcher.Filter}");
+            fileSystemWatcher.EnableRaisingEvents = false;
+            Output($"Stopped watcher for {fileSystemWatcher.Path} with filter string {fileSystemWatcher.Filter}");
             return true;
         }
 
         public bool IsWatching()
         {
-            return FileSystemWatcher.EnableRaisingEvents;
+            return fileSystemWatcher.EnableRaisingEvents;
         }
 
         private void OnCreated(object sender, FileSystemEventArgs e)
