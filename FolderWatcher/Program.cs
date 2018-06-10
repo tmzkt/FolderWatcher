@@ -2,6 +2,7 @@
 using Serilog;
 using System;
 using System.IO;
+using System.Threading;
 
 namespace FolderWatcher
 {
@@ -22,7 +23,7 @@ namespace FolderWatcher
             {
                 FolderWatcher watcher = new FolderWatcher(new FileSystemWatcherWrapper(new FileSystemWatcher(path, filter)));
                 watcher.Start();
-                Console.ReadLine();
+                WaitForControlC();
                 watcher.Stop();
             }
             catch (Exception e)
@@ -33,8 +34,12 @@ namespace FolderWatcher
 
         static void InitializeLogger()
         {
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.File("log-.txt", rollingInterval: RollingInterval.Day)
+                .ReadFrom.Configuration(configuration)
                 .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss.fff}] {Message:lj}{NewLine}{Exception}")
                 .CreateLogger();
         }
@@ -67,6 +72,17 @@ namespace FolderWatcher
                 throw new Exception($"'{key}' key not found in configuration");
             }
             return value;
+        }
+
+        static void WaitForControlC()
+        {
+            var exitEvent = new ManualResetEvent(false);
+            Console.CancelKeyPress += (sender, eventArgs) =>
+            {
+                eventArgs.Cancel = true;
+                exitEvent.Set();
+            };
+            exitEvent.WaitOne();
         }
     }
 }
