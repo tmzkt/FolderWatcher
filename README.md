@@ -5,10 +5,13 @@ FolderWawtcher is command-line .NET Core application that monitors a file direct
 
 [![folderwatcher screenshot 2](https://raw.githubusercontent.com/tmzkt/FolderWatcher/master/screenshot2.png)]
 
+## System requirements
+1. .NET Core 2.0
+
 ## How to use
-1. Download the zip and open the `appsettings.json` file to configure the `Path` and `Filter` parameters.
+1. Go to releases, download the zip, and open the `appsettings.json` file to configure the `Path` and `Filter` parameters.
 `Path` is the path to be monitored
 `Filter` is the filter string. Only files matching the filter string will have activity reported.
-2. Execute the exe by double clicking or running from the command line
-3. Observe the events that are displayed in the console and in the local log file
-4. Press Control+C to exit the program and stop the monitoring
+2. Open the command line and execute `dotnet FolderWatcher.dll` from the downloaded folder.
+3. Observe the events that are displayed in the console and in the local log file.
+4. Press Control+C to exit the program and stop watching the folder.
